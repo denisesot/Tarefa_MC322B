@@ -1,6 +1,6 @@
 # Tarefa_MC322B
 
-## Horror Deckbuilder em Java
+ Horror Deckbuilder em Java
 
 Projeto desenvolvido para a disciplina MC322 - Programação Orientada a Objetos (POO) da Universidade estadual de Campinas (UNICAMP).
 
@@ -22,15 +22,56 @@ O projeto tem como foco principal:
 
 - Aplicação de Programcação Orientada a objetos
 - Modelagem e classes
-- Organização de arquitetura de software
 - Boas práticas de desenvolvimento em Java
 
 ## 🧠 Conceitos Trabalhados
 
 - Programação Orientada a Objetos (POO)
 - Encapsulamento (cartas, jogador, inimigo)
-- Herança
-- Polimorfismo (src/)
 - Modelagem de entidades de jogo
 
+## 🏗 Estrutura do Projeto
 
+```
+Tarefa_MC322B/
+├── src/
+|   ├── App.java
+|   └── Herói.java
+|   └── Inimigo.java
+|   └── CartaDano.java
+|   └── CartaEscudo.java
+├── bin/
+├── lib/
+├── .gitignore
+└── README.md
+```
+## ▶️ Como Executar o Projeto 
+
+1. Clonar o repositório
+``` </> Bash
+git clone https://github.com/denisesot/Tarefa_MC322B.git
+```
+
+2. Entrar na pasta do projeto
+``` </> Bash
+cd Tarefa_MC322B
+```
+
+3. Compilar o código
+``` </> Bash
+javac src/App.java
+```
+4. Executar
+``` </> Bash
+java App.java
+```
+## 👨‍🏫 Disciplina
+
+MC322 - Programação Orientada a Objetos
+Instituto de Computação - UNICAMP
+
+Professor: Marcelo da Silva Reis
+
+## 📌 Observação
+
+Este projeto possui fins educacionais e foi desenvolvido como parte das atividades avaliativas da disciplina.
