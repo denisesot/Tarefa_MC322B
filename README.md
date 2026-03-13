@@ -43,7 +43,7 @@ O objetivo do jogador é derrotar o inimigo antes que sua vitalidade ou sanidade
 Durante o combate:
 
 - O jogador possui um baralho de cartas com diferentes habilidades.
-- No início de cada turno, 6 cartas são compradas para a mão do jogador.
+- No início de cada turno, o jogador tem a opção de escolher entre dar dano, usar escudo, usar corneta de guerra.
 - Cada carta possui um custo de energia para ser utilizada.
 - O jogador pode usar cartas enquanto possuir energia disponível.
 - Após o turno do jogador, os inimigos realizam suas ações, atacando ou aplicando efeitos.
@@ -52,6 +52,8 @@ O combate termina quando:
 
 - O herói é derrotado, ou  
 - Todos os inimigos são derrotados.
+
+Pode-se usar o "0" para desistir da batalha.
 
 ## 🧠 Conceitos Trabalhados
 
