@@ -92,7 +92,7 @@ javac src/App.java
 ```
 4. Executar
 ``` </> Bash
-java App
+java src/App.java
 ```
 
 ## 🛠 Tecnologias Utilizadas
