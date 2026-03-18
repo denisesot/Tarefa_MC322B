@@ -1,24 +1,23 @@
 // Classe para representar uma carta de escudo
 
-public class CartaEscudo {
-    private String nome;
-    private int custo;
+public class CartaEscudo extends Carta {
+
     private int defesa;
 
     public CartaEscudo(String nome, int custo, int defesa) {
-        this.nome = nome;
-        this.custo = custo;
+        super(nome, custo);
         this.defesa = defesa;    
     }
 
-    public void usar(Heroi jogador) {
-        if (jogador.getMana() >= custo) {
-            jogador.gastarMana(custo);
+    @Override
+    public void usar(Heroi jogador, Inimigo alvo) {
+        if (jogador.getMana() >= getCusto()) {
+            jogador.gastarMana(getCusto());
             jogador.ganharEscudo(defesa);
-            System.out.println(jogador.getNome() + " usou " + nome + " e aumentou seu escudo em " + defesa);
-
+            System.out.println(jogador.getNome() + " usou " + getNome() + " e aumentou seu escudo em " + defesa);
+            System.out.println("Escudo total de " + jogador.getNome() + ": " + (jogador.getEscudo() + defesa));
         } else {
-            System.out.println(jogador.getNome() + " não tem mana suficiente para usar " + nome);
+            System.out.println(jogador.getNome() + " não tem mana suficiente para usar " + getNome());
         }
     }
 }

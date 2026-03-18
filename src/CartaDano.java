@@ -1,24 +1,23 @@
 // Classe para representar uma carta de dano
 
 
-public class CartaDano {
-    private String nome;
-    private int custo;
+public class CartaDano extends Carta {
     private int dano;
 
     public CartaDano(String nome, int custo, int dano) {
-        this.nome = nome;
-        this.custo = custo;
-        this.dano = dano;    
+        super(nome, custo);
+        this.dano = dano;
     }
 
+    @Override
     public void usar(Heroi jogador, Inimigo alvo) {
-        if (jogador.getMana() >= custo) {
-            jogador.gastarMana(custo);
+        if (jogador.getMana() >= getCusto()) {
+            jogador.gastarMana(getCusto());
             alvo.receberDano(dano);
-            System.out.println(jogador.getNome() + " usou " + nome + " e causou " + dano + " de dano em " + alvo.getNome());
+            System.out.println(jogador.getNome() + " usou " + getNome() + " e causou " + dano + " de dano em " + alvo.getNome());
         } else {
-            System.out.println(jogador.getNome() + " não tem mana suficiente para usar " + nome);
+            System.out.println(jogador.getNome() + " não tem mana suficiente para usar " + getNome());
         }
     }
+
 }

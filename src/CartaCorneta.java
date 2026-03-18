@@ -1,23 +1,21 @@
-public class CartaCorneta {
+public class CartaCorneta extends Carta {
 
-    private String nome;
-    private int custo;
     private int vulneravel;
 
     public CartaCorneta(String nome, int custo, int vulneravel) {
-        this.nome = nome;
-        this.custo = custo;
+        super(nome, custo);
         this.vulneravel = vulneravel;
     }
 
+    @Override
     public void usar(Heroi heroi, Inimigo inimigo) {
 
-        if (heroi.getMana() < custo) {
-            System.out.println("Energia insuficiente para usar " + nome + "!");
+        if (heroi.getMana() < getCusto()) {
+            System.out.println("Energia insuficiente para usar " + getNome() + "!");
             return;
         }
 
-        heroi.gastarMana(custo);
+        heroi.gastarMana(getCusto());
 
         System.out.println("\n📯 Silas Vane ergue a Corneta de Guerra...");
         System.out.println("Um som antigo ecoa pelos abismos do oceano.");

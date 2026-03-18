@@ -1,25 +1,25 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class App {
 
     public static void imprimirLento(String texto, int delay) {
-    for (char c : texto.toCharArray()) {
-        System.out.print(c);
-        try {
-            Thread.sleep(delay);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+        for (char c : texto.toCharArray()) {
+            System.out.print(c);
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
+        System.out.println();
     }
-    System.out.println();
-    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Heroi heroi = new Heroi(40, "Silas Vane");
         Inimigo inimigo = new Inimigo(25, "Cthulhu");
-        CartaEscudo escudo = new CartaEscudo("Ward of Protection", 1, 5);
-        CartaDano espada = new CartaDano("Forbidden Blade", 1, 6);
-        CartaCorneta corneta = new CartaCorneta("Corneta de Guerra", 1, 2);
+        
+        GerenciadorDeCartas gerenciador = new GerenciadorDeCartas();
 
         // INTRODUÇÃO
         imprimirLento("=================================================================================================================", 10);
@@ -30,7 +30,9 @@ public class App {
         imprimirLento("The pages whisper secrets older than humanity itself.", 75);
         imprimirLento("", 50);
         imprimirLento("Something stirs beneath the ocean...", 90);
-        imprimirLento("", 100000000);
+        imprimirLento(".", 90);
+        imprimirLento(".", 90);
+        imprimirLento(".", 90);
 
 
         // ASCII DO CTHULHU
@@ -59,59 +61,56 @@ public class App {
         System.out.println("\n=== BATALHA COMEÇOU ===");
         
         while (heroi.estaVivo() && inimigo.estaVivo()) {
-            heroi.resetarMana(); // início do turno
+            heroi.resetarMana();
             heroi.resetaEscudo();
-            boolean turno = true;
-            while (turno) {
-                System.out.println("\n------------------");
-                System.out.println(heroi.getNome() + " | Vida: " + heroi.getVida() + " | Escudo: " + heroi.getEscudo());
-                System.out.println("Mana: " + heroi.getMana());
-                System.out.println("VS");
-                System.out.println(inimigo.getNome() + " | Vida: " + inimigo.getVida());
-                System.out.println("\nEscolha uma ação:");
-                System.out.println("0 - Sair do jogo");
-                System.out.println("1 - Usar carta de dano");
-                System.out.println("2 - Usar carta de escudo");
-                System.out.println("3 - Corneta de Guerra");
-                System.out.println("4 - Encerrar turno");
-                System.out.print("\n ");
+        
+        gerenciador.prepararNovoTurno();
+        
+        boolean turnoAtivo = true;
+        while (turnoAtivo && heroi.estaVivo() && inimigo.estaVivo()) {
+            System.out.println("\n-----------------------------------------------------------------------");
+            System.out.println(heroi.getNome() + " - Vida: " + heroi.getVida() + ", Escudo: " + heroi.getEscudo());
+            System.out.println("Mana: " + heroi.getMana());
+            System.out.println("VS " + inimigo.getNome() + " | Vida: " + inimigo.getVida());
 
-                int escolha = scanner.nextInt();
-                if (escolha == 0){
-                    System.out.println("Você abandonou a batalha...");
-                    scanner.close();
-                    System.exit(0);
-                }
-                if (escolha == 1) {
-                    espada.usar(heroi, inimigo);
-                } else if (escolha == 2) {
-                    escudo.usar(heroi);
-                } else if (escolha == 3) {
-                    corneta.usar(heroi, inimigo);
-                } else if (escolha == 4) {
-                    turno = false; 
-                } else {
-                    System.out.println("Opção inválida!");
-                }   
-                if (!inimigo.estaVivo()) {
-                    break;
-                }
-                if (heroi.getMana() == 0) {
-                    System.out.println("Você ficou sem mana!");
-                    turno = false;
-                }
+            gerenciador.exibirMao();
+            
+            System.out.println("\nEscolha uma ação:");
+            System.out.println("0 - Sair do jogo");
+            System.out.println("99 - Encerrar turno");
+            System.out.println("\nDigite o número da carta: ");
+
+            int escolha = scanner.nextInt();
+            
+            if (escolha == 0) {
+                System.out.println("Você abandonou a batalha...");
+                System.exit(0);
             }
-            if (inimigo.estaVivo()) { // turno do inimigo
-                System.out.println("\nTurno do inimigo!");
-                inimigo.atacar(heroi);
+            if (escolha == 99) {
+                turnoAtivo = false;
+            } else {
+                gerenciador.jogarCarta(escolha -1, heroi, inimigo);
+            }
+
+            if (heroi.getMana() <= 0) {
+                System.out.println("\nSua mana acabou! Encerrando turno...");
+                turnoAtivo = false;
             }
         }
-        if (heroi.getVida() > 0) {
-            System.out.println("\nVocê venceu!");
+        
+        if (inimigo.estaVivo() && heroi.estaVivo()) {
+            System.out.println("\n---Turno de " + inimigo.getNome() + "---");
+            inimigo.atacar(heroi);
+        }
+    }   
+        if (heroi.estaVivo()) {
+            System.out.println("\nVocê baniu o horror cósmico de volta para o abismo!");
         } else {
-            System.out.println("\nVocê foi derrotado!");
-
+            System.out.println("\nSua mente sucumbiu à loucura...Game Over.");
         }
+
         scanner.close();
     }
 }
+
+
