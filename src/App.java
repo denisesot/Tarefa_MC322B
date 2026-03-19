@@ -72,9 +72,8 @@ public class App {
             System.out.println(heroi.getNome() + " - Vida: " + heroi.getVida() + ", Escudo: " + heroi.getEscudo());
             System.out.println("Mana: " + heroi.getMana());
             System.out.println("VS " + inimigo.getNome() + " | Vida: " + inimigo.getVida());
-
+            inimigo.anunciarIntencao(); 
             gerenciador.exibirMao();
-            
             System.out.println("\nEscolha uma ação:");
             System.out.println("0 - Sair do jogo");
             System.out.println("99 - Encerrar turno");
