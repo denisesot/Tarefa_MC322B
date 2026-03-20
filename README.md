@@ -42,23 +42,30 @@ O objetivo do jogador é derrotar o inimigo antes que sua vitalidade ou sanidade
 
 Durante o combate:
 
-- O jogador possui um baralho de cartas com diferentes habilidades.
-- No início de cada turno, o jogador tem a opção de escolher entre dar dano, usar escudo, usar corneta de guerra.
+- O jogador possui um baralho com 30 cartas com diferentes habilidades.
+- No início de cada turno, o jogador compra 6 cartas do baralho.
 - Cada carta possui um custo de energia para ser utilizada.
-- O jogador pode usar cartas enquanto possuir energia disponível.
-- Após o turno do jogador, os inimigos realizam suas ações, atacando ou aplicando efeitos.
-
+- O jogador pode usar quantas cartas quiser, desde que tenha energia suficiente.
+- As cartas permitem causar dano, ganhar escudo ou utilizar habilidades especiais, como a Corneta de Guerra.
+- Ao final do turno do jogador, sua mão é descartada.
+- Em seguida, os inimigos realizam suas ações, atacando ou aplicando efeitos.
+  
 O combate termina quando:
 
 - O herói é derrotado, ou  
 - Todos os inimigos são derrotados.
 
+Utilize o "99" para passar o turno.
 Pode-se usar o "0" para desistir da batalha.
 
 ## 🧠 Conceitos Trabalhados
 
 - Programação Orientada a Objetos (POO)
 - Encapsulamento (cartas, jogador, inimigo)
+- Herança
+- Polimorfismo
+- Modularização de código
+- Estruturação de projetos Java
 - Modelagem de entidades de jogo
 
 ## 🏗 Estrutura do Projeto
@@ -69,8 +76,10 @@ Tarefa_MC322B/
 │   ├── App.java
 │   ├── Herói.java
 │   ├── Inimigo.java
+│   ├── CartaCorneta.java
 │   ├── CartaDano.java
-│   └── CartaEscudo.java
+│   ├── CartaEscudo.java
+│   └── GerenciamentoDeCartas
 ├── bin/
 ├── lib/
 ├── .gitignore
