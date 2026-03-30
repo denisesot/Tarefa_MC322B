@@ -5,12 +5,14 @@ public class GerenciadorDeCartas {
     private List<Carta> mao = new ArrayList<>();
     private List<Carta> descarte = new ArrayList<>();
 
-    public GerenciadorDeCartas() {
-        
-        for(int i=0; i < 10; i++){
+    public GerenciadorDeCartas(Publisher publisher) {
+        for(int i=0; i < 5; i++){
             baralho.add(new CartaDano("Forbidden Blade", "Causa 6 de dano.", 1, 6));
             baralho.add(new CartaEscudo("Ward of Protection", "Ganha 5 de escudo.", 1, 5));
             baralho.add(new CartaCorneta("Corneta de Guerra", "Deixa o inimigo vulnerável.", 1, 2));
+            // Adicionando as nossas cartas novas que usam os efeitos!
+            baralho.add(new CartaVeneno(1, 3, publisher));
+            baralho.add(new CartaAtordoar(2, publisher));
         }
         Collections.shuffle(baralho);
     }

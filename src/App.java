@@ -1,7 +1,27 @@
 import java.util.*;
 
-public class App {
+public class App implements Publisher {
 
+    private List<Subscriber> subscribers = new ArrayList<>();
+    private List<Subscriber> paraRemover = new ArrayList<>();
+
+    @Override
+    public void inscrever(Subscriber s) {
+        subscribers.add(s);
+    }
+
+    @Override
+    public void desinscrever(Subscriber s) {
+        paraRemover.add(s);
+    }
+    @Override
+    public void notificar(String evento) {
+        for (Subscriber s : subscribers) {
+            s.Notificacao(evento);
+        }
+        subscribers.removeAll(paraRemover);
+        paraRemover.clear();
+    }
     public static void imprimirLento(String texto, int delay) {
         for (char c : texto.toCharArray()) {
             System.out.print(c);
@@ -13,13 +33,12 @@ public class App {
         }
         System.out.println();
     }
-
-    public static void main(String[] args) {
+    public void iniciar() {
         Scanner scanner = new Scanner(System.in);
         Heroi heroi = new Heroi(40, "Silas Vane");
-        Inimigo inimigo = new Inimigo(25, "Cthulhu");
+        Inimigo inimigo = new Inimigo(25, "Cthulhu", this);
+        GerenciadorDeCartas gerenciador = new GerenciadorDeCartas(this);
         
-        GerenciadorDeCartas gerenciador = new GerenciadorDeCartas();
 
         // INTRODUÇÃO
         imprimirLento("=================================================================================================================", 10);
@@ -96,12 +115,18 @@ public class App {
                 turnoAtivo = false;
             }
         }
-        
-        if (inimigo.estaVivo() && heroi.estaVivo()) {
-            System.out.println("\n---Turno de " + inimigo.getNome() + "---");
-            inimigo.atacar(heroi);
-        }
-    }   
+        this.notificar("FIM_TURNO_" + heroi.getNome().toUpperCase());
+            
+            if (inimigo.estaVivo() && heroi.estaVivo()) {
+                System.out.println("\n---Turno de " + inimigo.getNome() + "---");
+                
+                // Mudou de atacar() para agir(), já que agora ele tem mecânicas novas
+                inimigo.agir(heroi);
+                
+                // ---> NOTIFICAÇÃO DE FIM DE TURNO DO INIMIGO <---
+                this.notificar("FIM_TURNO_" + inimigo.getNome().toUpperCase());
+            }
+        }   
         if (heroi.estaVivo()) {
             System.out.println("\nVocê baniu o horror cósmico de volta para o abismo!");
         } else {
@@ -110,6 +135,9 @@ public class App {
 
         scanner.close();
     }
-}
-
+    public static void main(String[] args) {
+        App meuJogo = new App();
+        meuJogo.iniciar();
+    }
+}  
 
