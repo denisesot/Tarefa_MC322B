@@ -22,19 +22,24 @@ Em Echoes of the Abyss, o jogador assume o papel de um investigador que se avent
 
 Durante sua jornada, ele enfrenta criaturas e entidades que desafiam a compreensão humana. Para sobreviver, o jogador utiliza um baralho de cartas místicas, cada uma representando uma ação, habilidade ou manifestação de conhecimento oculto.
 
-Cada carta pode possuir efeitos específicos, como:
+Agora o sistema conta também com cartas de efeito, tornando o combate mais dinâmico e estratégico.
 
-- Causar dano ao inimigo  
-- Aplicar efeitos especiais durante o combate  
-- Modificar atributos do jogador ou do inimigo  
+## Tipos de Cartas
+O jogo atualmente possui:
 
+### Cartas Básicas
+- **Carta de Dano** - causa dano direto ao inimigo
+- **Carta de Escudo** - concede proteção ao jogador
+- **Corneta de Guerra** - aplica vulnerabilidade ao inimigo (recebe mais dano)
+
+### Cartas de Efeito 
+
+- **Veneno** - causa dano ao final do turno em seguida descardada
+- **Atordoar** - faz o alvo perder o próximo turno
+ 
 Na primeira etapa do projeto, o sistema de combate será baseado em decisões estratégicas sobre quais cartas utilizar.
 
-Inicialmente, o jogador terá acesso a cartas básicas como:
-
-- **Carta de Dano** – ataques diretos contra o inimigo  
-- **Carta de Escudo** – proteção contra ataques recebidos  
-- **Corneta de Guerra** – habilidade especial que fortalece temporariamente o herói
+Em seguida, a criação de efeitos que funcionam tanto para o herói quanto para o inimigo utilizando um sistema genérico baseado em entidades.
 
 O objetivo do jogador é derrotar o inimigo antes que sua vitalidade ou sanidade se esgote, utilizando estratégia e gerenciamento de recursos.
 
@@ -49,14 +54,18 @@ Durante o combate:
 - As cartas permitem causar dano, ganhar escudo ou utilizar habilidades especiais, como a Corneta de Guerra.
 - Ao final do turno do jogador, sua mão é descartada.
 - Em seguida, os inimigos realizam suas ações, atacando ou aplicando efeitos.
+- Inimigo mostra a intenção do próximo turno.
   
 O combate termina quando:
 
 - O herói é derrotado, ou  
 - Todos os inimigos são derrotados.
 
-Utilize o "99" para passar o turno.
-Pode-se usar o "0" para desistir da batalha.
+### Controles
+
+- 1,2,... -> usar carta
+- "99" -> encerra o turno.
+- "0" -> desistir da batalha.
 
 ## 🧠 Conceitos Trabalhados
 
@@ -74,12 +83,17 @@ Pode-se usar o "0" para desistir da batalha.
 Tarefa_MC322B/
 ├── src/
 │   ├── App.java
-│   ├── Herói.java
-│   ├── Inimigo.java
-│   ├── CartaCorneta.java
-│   ├── CartaDano.java
-│   ├── CartaEscudo.java
-│   └── GerenciamentoDeCartas
+│   └── Entidade.java
+│      ├── Herói.java
+│      └── Inimigo.java
+│   └── Carta.java
+│        ├── CartaCorneta.java
+│        ├── CartaDano.java
+│        └── CartaEscudo.java
+│   ├── GerenciamentoDeCartas
+│   └── Efeito.java
+│        ├── EfeitoAtordoar.java
+│        └── EfeitoVeneno.java
 ├── bin/
 ├── lib/
 ├── .gitignore
