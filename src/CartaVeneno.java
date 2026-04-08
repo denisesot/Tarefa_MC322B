@@ -1,15 +1,15 @@
 public class CartaVeneno extends Carta {
-    private int acumulos;
-    private Publisher publisher;
 
-    public CartaVeneno(int custo, int acumulos, Publisher publisher) {
-        super("Frasco Sombrio", "Aplica " + acumulos + " de Veneno no inimigo.", custo);
-        this.acumulos = acumulos;
-        this.publisher = publisher;
+    private int dano;
+
+    public CartaVeneno(String nome, String descricao, int custo, int dano) {
+        super(nome, descricao, custo);
+        this.dano = dano;
     }
+
     @Override
-    public void usar(Heroi heroi, Inimigo inimigo) {
-        System.out.println("🧪 Silas lança um frasco de ácido abissal!");
-        inimigo.aplicarEfeito(new EfeitoVeneno(inimigo, acumulos, publisher));
+    public void usar(Entidade jogador, Entidade alvo) {
+        alvo.aplicarVeneno(dano);
+        System.out.println(jogador.getNome() + " aplicou veneno em " + alvo.getNome());
     }
 }

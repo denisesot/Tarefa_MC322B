@@ -1,14 +1,25 @@
-public class EfeitoVeneno extends Efeito {
-    public EfeitoVeneno(Entidade dono, int acumulos, Publisher publisher) {
-        super("Veneno", dono, acumulos, publisher);
+public class EfeitoVeneno implements Efeito {
+
+    private Entidade alvo;
+    private int duracao = 1;
+
+    public EfeitoVeneno(Entidade alvo) {
+        this.alvo = alvo;
     }
+
     @Override
-    public void Notificacao(String evento) {
-        if (evento.equals("FIM_TURNO_" + dono.getNome().toUpperCase())) {
-            System.out.println("🧪 [" + dono.getNome() + "] sofreu " + acumulos + " de dano de Veneno!");
-            dono.receberDano(acumulos);
-            this.acumulos -= 1;
-            remover(); 
-        }
+    public void aplicar() {
+        alvo.receberDano(3);
+        System.out.println(alvo.getNome() + " sofre 3 de dano por veneno!");
+    }
+
+    @Override
+    public void reduzirDuracao() {
+        duracao--;
+    }
+
+    @Override
+    public boolean expirou() {
+        return duracao <= 0;
     }
 }

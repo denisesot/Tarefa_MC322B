@@ -1,20 +1,25 @@
-public class EfeitoAtordoar extends Efeito {
-    public EfeitoAtordoar(Entidade dono, int acumulos, Publisher publisher) {
-        super("Atordoar", dono, acumulos, publisher);
-        dono.setAtordoado(true);
+public class EfeitoAtordoar implements Efeito {
+
+    private Entidade alvo;
+    private int duracao = 1;
+
+    public EfeitoAtordoar(Entidade alvo) {
+        this.alvo = alvo;
     }
+
     @Override
-    public void Notificacao(String evento) {
-        if (evento.equals("FIM_TURNO_" + dono.getNome().toUpperCase())) {
-            this.acumulos -= 1;
-            remover();
-        }
+    public void aplicar() {
+        alvo.setAtordoado(true);
+        System.out.println(alvo.getNome() + " está atordoado!");
     }
+
     @Override
-    protected void remover() {
-        if (this.acumulos <= 0) {
-            dono.setAtordoado(false); 
-            super.remover();
-        }
+    public void reduzirDuracao() {
+        duracao--;
     }
- }
+
+    @Override
+    public boolean expirou() {
+        return duracao <= 0;
+    }
+}
