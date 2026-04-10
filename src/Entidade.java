@@ -1,12 +1,34 @@
+import java.util.*;
+
 public abstract class Entidade {
     protected String nome;
     protected int escudo;
     protected int vida;
+  
+    protected List<Efeito> efeitos = new ArrayList<>();
 
     public Entidade(String nome, int vida) {
         this.nome = nome;
         this.vida = vida;
         this.escudo = 0;
+    }
+
+    public void adicionarEfeito(Efeito efeito) {
+        efeitos.add(efeito);
+    }
+
+    public void aplicarEfeitos() {
+        Iterator<Efeito> it = efeitos.iterator();
+
+        while (it.hasNext()) {
+            Efeito e = it.next();
+            e.aplicar();
+            e.reduzirDuracao();
+
+            if (e.expirou()) {
+                it.remove();
+            }
+        }
     }
 
     public void receberDano(int dano) {
@@ -43,5 +65,15 @@ public abstract class Entidade {
 
     public int getEscudo() {
         return escudo;
+    }
+
+    protected boolean atordoado = false;
+
+    public boolean estaAtordoado() {
+        return atordoado;
+    }
+
+    public void setAtordoado(boolean valor) {
+        atordoado = valor;
     }
 }

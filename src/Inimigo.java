@@ -6,6 +6,10 @@ public class Inimigo extends Entidade {
         this.vulneravel = 0;
     }
     public void atacar(Heroi heroi) {
+        if (this.estaAtordoado()) {
+        System.out.println(this.getNome() + " está atordoado e não pode atacar!");
+        return;
+    }
         int dano = 5; 
         System.out.println(nome + " atacou causando " + dano + " de dano!");
         heroi.receberDano(dano);
@@ -16,4 +20,5 @@ public class Inimigo extends Entidade {
     public void aplicarVulneravel(int valor) {
         this.vulneravel += valor;
     }
+    
 }

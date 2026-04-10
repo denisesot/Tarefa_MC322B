@@ -5,9 +5,8 @@ public class CartaAtordoar extends Carta {
     }
 
     @Override
-    public void usar(Entidade jogador, Entidade alvo) {
-        alvo.setAtordoado(true);
-
+    public void usar(Heroi jogador, Inimigo alvo) {
+        alvo.adicionarEfeito(new EfeitoAtordoar(alvo));
         System.out.println(jogador.getNome() + " atordoou " + alvo.getNome());
     }
 }

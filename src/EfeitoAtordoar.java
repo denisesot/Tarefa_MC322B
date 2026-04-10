@@ -1,7 +1,7 @@
 public class EfeitoAtordoar implements Efeito {
 
     private Entidade alvo;
-    private int duracao = 1;
+    private int duracao = 2;
 
     public EfeitoAtordoar(Entidade alvo) {
         this.alvo = alvo;
@@ -10,12 +10,15 @@ public class EfeitoAtordoar implements Efeito {
     @Override
     public void aplicar() {
         alvo.setAtordoado(true);
-        System.out.println(alvo.getNome() + " está atordoado!");
+        System.out.println(alvo.getNome() + " está atordoado e não pode agir!");
     }
 
     @Override
     public void reduzirDuracao() {
         duracao--;
+        if (duracao <= 0){
+            alvo.setAtordoado(false); //remove stun
+        }
     }
 
     @Override

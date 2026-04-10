@@ -1,16 +1,19 @@
 public class EfeitoVeneno implements Efeito {
 
     private Entidade alvo;
-    private int duracao = 1;
+    private int duracao;
+    private int dano;
 
-    public EfeitoVeneno(Entidade alvo) {
+    public EfeitoVeneno(Entidade alvo, int dano, int duracao) {
         this.alvo = alvo;
+        this.dano = dano;
+        this.duracao = duracao;
     }
 
     @Override
     public void aplicar() {
-        alvo.receberDano(3);
-        System.out.println(alvo.getNome() + " sofre 3 de dano por veneno!");
+        alvo.receberDano(dano);
+        System.out.println(alvo.getNome() + " sofre " + dano + " de dano por veneno!");
     }
 
     @Override
