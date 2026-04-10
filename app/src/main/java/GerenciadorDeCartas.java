@@ -1,18 +1,23 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class GerenciadorDeCartas {
     private List<Carta> baralho = new ArrayList<>();
     private List<Carta> mao = new ArrayList<>();
     private List<Carta> descarte = new ArrayList<>();
 
-    public GerenciadorDeCartas(Publisher publisher) {
-        for(int i=0; i < 5; i++){
+    public GerenciadorDeCartas() {
+        
+        for(int i=0; i < 10; i++){
+            baralho.add(new CartaChama("Hell's Breath", "Causa 3 de dano e aplica queimadura.", 1, 3));
+            baralho.add(new CartaCura("Divine Bless", "Cura 10 de vida.", 1, 10));
+            baralho.add(new CartaEnergetica("Energy Potion", "Recupera 2 de mana.", 0, 2));
+            baralho.add(new CartaMagica("Chaos", "Aplica um efeito aleatório no alvo.", 2));
+            baralho.add(new CartaSacrificio("Blood Pact", "Perde 6 de vida, causa 12 de dano.", 1, 12, 6));
             baralho.add(new CartaDano("Forbidden Blade", "Causa 6 de dano.", 1, 6));
             baralho.add(new CartaEscudo("Ward of Protection", "Ganha 5 de escudo.", 1, 5));
             baralho.add(new CartaCorneta("Corneta de Guerra", "Deixa o inimigo vulnerável.", 1, 2));
-            // Adicionando as nossas cartas novas que usam os efeitos!
-            baralho.add(new CartaVeneno(1, 3, publisher));
-            baralho.add(new CartaAtordoar(2, publisher));
         }
         Collections.shuffle(baralho);
     }
