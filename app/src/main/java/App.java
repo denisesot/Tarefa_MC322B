@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class App {
 
@@ -57,8 +57,11 @@ public class App {
 
         System.out.println("\n=== BATALHA COMEÇOU ===");
         
-        // 
+        // EFEITOS INICIO TURNO
         while (heroi.estaVivo() && inimigo.estaVivo()) {
+            heroi.aplicarEfeitos();
+            inimigo.aplicarEfeitos();
+
             heroi.resetarMana();
             heroi.resetaEscudo();
         
@@ -66,7 +69,6 @@ public class App {
             
             boolean turnoAtivo = true;
             
-            // 
             while (turnoAtivo && heroi.estaVivo() && inimigo.estaVivo()) {
                 System.out.println("\n-----------------------------------------------------------------------");
                 System.out.println(heroi.getNome() + " - Vida: " + heroi.getVida() + ", Escudo: " + heroi.getEscudo());
@@ -97,12 +99,11 @@ public class App {
                 }
             } 
             
-            // 
+            // TURNO INIMIGO
             if (inimigo.estaVivo() && heroi.estaVivo()) {
                 System.out.println("\n---Turno de " + inimigo.getNome() + "---");
-                inimigo.processarEfeitos();
                 if (inimigo.estaVivo()) {
-                    if (!inimigo.isAtordoado()) {
+                    if (!inimigo.estaAtordoado()) {
                         inimigo.atacar(heroi);
                     } else {
                         System.out.println("💫 " + inimigo.getNome() + " está atordoado e perdeu o turno!");

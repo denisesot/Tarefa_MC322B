@@ -2,7 +2,7 @@ public class CartaSacrificio extends Carta {
     private int dano;
     private int perdeVida;
 
-    public CartaSacrificio(String nome, String descricao, int custo, int dano, int perdaDeVida) {
+    public CartaSacrificio(String nome, String descricao, int custo, int dano, int perdeVida) {
         super(nome, descricao, custo);
         this.dano = dano;
         this.perdeVida = perdeVida;
