@@ -1,13 +1,15 @@
 public class CartaAtordoar extends Carta {
 
-    public CartaAtordoar(String nome, String descricao, int custo) {
+    private int duracao;
+
+    public CartaAtordoar(String nome, String descricao, int custo, int duracao) {
         super(nome, descricao, custo);
+        this.duracao = duracao;
     }
 
     @Override
     public void usar(Heroi jogador, Inimigo alvo) {
-        alvo.setAtordoado(true);
-
-        System.out.println(jogador.getNome() + " atordoou " + alvo.getNome());
+        alvo.adicionarEfeito(new EfeitoAtordoar(alvo, duracao));
+        System.out.println("Inimigo atordoado!");
     }
 }

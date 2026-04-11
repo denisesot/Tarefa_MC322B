@@ -8,20 +8,26 @@ public class CartaMagica extends Carta {
 
     @Override
     public void usar(Heroi jogador, Inimigo alvo) {
-        System.out.println("✨ " + jogador.getNome() + " recitou palavras proibidas do tomo!");
-        
+
+        System.out.println("✨ " + jogador.getNome() + " invocou forças caóticas do abismo...");
+
         Random rand = new Random();
-        int sorteio = rand.nextInt(3); // Sorteia um número de 0 a 2
+        int sorteio = rand.nextInt(3);
 
         if (sorteio == 0) {
-            alvo.setVeneno(true);
-            System.out.println(">> EFEITO SORTEADO: " + alvo.getNome() + " foi envenenado!");
+            alvo.adicionarEfeito(new EfeitoVeneno(alvo, 3, 2));
+            System.out.println("🧪 O caos escolheu VENENO!");
+            System.out.println(alvo.getNome() + " sofrerá dano por 2 turnos!");
+
         } else if (sorteio == 1) {
-            alvo.setAtordoado(true);
-            System.out.println(">> EFEITO SORTEADO: " + alvo.getNome() + " está atordoado!");
+            alvo.adicionarEfeito(new EfeitoAtordoar(alvo, 1));
+            System.out.println("💫 O caos escolheu ATORDOAMENTO!");
+            System.out.println(alvo.getNome() + " perderá o próximo turno!");
+
         } else {
-            alvo.setQueimadura(true);
-            System.out.println(">> EFEITO SORTEADO: " + alvo.getNome() + " começou a queimar!");
+            alvo.adicionarEfeito(new EfeitoQueimadura(alvo));
+            System.out.println("🔥 O caos escolheu QUEIMADURA!");
+            System.out.println(alvo.getNome() + " está em chamas!");
         }
     }
 }

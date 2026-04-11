@@ -3,4 +3,3 @@ public interface Efeito {
     void reduzirDuracao();
     boolean expirou();   // verifica se acabou
 } 
-

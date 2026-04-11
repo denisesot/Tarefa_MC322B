@@ -1,15 +1,16 @@
 public class CartaChama extends Carta {
-    private int danoInicial;
 
-    public CartaChama(String nome, String descricao, int custo, int danoInicial) {
+    private int dano;
+
+    public CartaChama(String nome, String descricao, int custo, int dano) {
         super(nome, descricao, custo);
-        this.danoInicial = danoInicial;
+        this.dano = dano;
     }
 
     @Override
     public void usar(Heroi jogador, Inimigo alvo) {
-        alvo.receberDano(danoInicial);
-        System.out.println(jogador.getNome() + " usou " + getNome() + " e causou " + danoInicial + " de dano!");
-        alvo.setQueimadura(true);
+        alvo.receberDano(dano);
+        alvo.adicionarEfeito(new EfeitoQueimadura(alvo));
+        System.out.println("Queimadura aplicada!");
     }
 }

@@ -18,6 +18,8 @@ public class GerenciadorDeCartas {
             baralho.add(new CartaDano("Forbidden Blade", "Causa 6 de dano.", 1, 6));
             baralho.add(new CartaEscudo("Ward of Protection", "Ganha 5 de escudo.", 1, 5));
             baralho.add(new CartaCorneta("Corneta de Guerra", "Deixa o inimigo vulnerável.", 1, 2));
+            baralho.add(new CartaVeneno("Veneno Ancestral", "Dano por turno", 1, 3, 2));
+            baralho.add(new CartaAtordoar("Ritual Sombrio", "Impede ação", 2, 1));
         }
         Collections.shuffle(baralho);
     }
