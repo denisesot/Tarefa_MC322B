@@ -1,3 +1,9 @@
+package game.echoes;
+/**
+ * Classe que representa a carta de escudo no jogo.
+ * 
+ * Esta carta, ao ser utilizada, concede um aumento temporário na defesa do herói que a usa.
+ */
 public class CartaEscudo extends Carta {
 
     private int defesa;
@@ -7,6 +13,12 @@ public class CartaEscudo extends Carta {
         this.defesa = defesa;    
     }
 
+    /**
+     * Aplica o efeito de escudo ao herói.
+     * 
+     * @param jogador herói que usa a carta
+     * @param alvo inimigo
+     */
     @Override
     public void usar(Heroi jogador, Inimigo alvo) {
         jogador.ganharEscudo(defesa);

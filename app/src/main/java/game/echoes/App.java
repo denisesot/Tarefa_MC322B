@@ -1,6 +1,22 @@
+package game.echoes;
 import java.util.*;
 
+/**
+ * Classe principal do jogo Echoes of the Abyss.
+ * 
+ * Responsável por inicializar o jogo, controlar o fluxo da batalha
+ * entre o herói e o inimigo, gerenciar turnos e interações com o usuário.
+ */
+
+
 public class App {
+
+    /**
+     * Imprime texto caractere por caractere simulando efeito de digitação.
+     * 
+     * @param texto Texto a ser exibido
+     * @param delay Tempo de espera entre caracteres (em ms)
+     */
 
     public static void imprimirLento(String texto, int delay) {
         for (char c : texto.toCharArray()) {
@@ -13,6 +29,17 @@ public class App {
         }
         System.out.println();
     }
+
+    /**
+     * Método principal que inicia o jogo.
+     * 
+     * Responsável por:
+     * - Criar o herói e o inimigo
+     * - Controlar o loop da batalha
+     * - Gerenciar turnos e entrada do usuário
+     * 
+     * @param args argumentos de linha de comando (não utilizados)
+     */
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -57,10 +84,11 @@ public class App {
 
         System.out.println("\n=== BATALHA COMEÇOU ===");
         
-        // EFEITOS INICIO TURNO
+        // Aplica efeitos ativos no início de cada turno (veneno, queimadura, etc.)
+        heroi.aplicarEfeitos();
+        inimigo.aplicarEfeitos();
+
         while (heroi.estaVivo() && inimigo.estaVivo()) {
-            heroi.aplicarEfeitos();
-            inimigo.aplicarEfeitos();
 
             heroi.resetarMana();
             heroi.resetaEscudo();

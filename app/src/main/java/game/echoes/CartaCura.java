@@ -1,3 +1,9 @@
+package game.echoes;
+/**
+ * Classe que representa a carta de cura no jogo.
+ * 
+ * Ao ser utilizada, esta carta recupera pontos de vida do herói que a usa.
+ */
 public class CartaCura extends Carta {
     private int cura;
 
@@ -6,6 +12,12 @@ public class CartaCura extends Carta {
         this.cura = cura;
     }
 
+    /**
+     * Aplica cura ao herói.
+     * 
+     * @param jogador herói que usa a carta
+     * @param alvo inimigo 
+     */
     @Override
     public void usar(Heroi jogador, Inimigo alvo) {
         jogador.curar(cura); 

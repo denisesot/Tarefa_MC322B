@@ -1,3 +1,10 @@
+package game.echoes;
+/**
+ * Classe que representa um inimigo no jogo.
+ * 
+ * O inimigo possui pontos de vida, um nome e um contador de vulnerabilidade.
+ * Ele pode atacar o herói, anunciar suas intenções e ser afetado por cartas de status.
+ */
 public class Inimigo extends Entidade {
 
     private int vulneravel; 
@@ -5,6 +12,13 @@ public class Inimigo extends Entidade {
         super(nome, vida);
         this.vulneravel = 0;
     }
+
+    /**
+     * Ataca o herói, causando dano. Se o inimigo estiver atordoado, ele não pode atacar.
+     * O dano é aumentado pela vulnerabilidade acumulada.
+     * 
+     * @param heroi O herói alvo do ataque
+     */
     public void atacar(Heroi heroi) {
         
         if (this.estaAtordoado()) {
