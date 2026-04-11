@@ -1,3 +1,10 @@
+package game.echoes;
+/**
+ * Classe que representa a carta "Energetica" no jogo.
+ * 
+ * Esta carta concede energia extra ao herói que a usa.
+ */
+
 public class CartaEnergetica extends Carta {
     private int energiaExtra;
 
@@ -6,6 +13,12 @@ public class CartaEnergetica extends Carta {
         this.energiaExtra = energiaExtra;
     }
 
+    /**
+    * Aplica o efeito de energia extra ao herói.
+    * 
+    * @param jogador herói que usa a carta
+    * @param alvo inimigo 
+    */
     @Override
     public void usar(Heroi jogador, Inimigo alvo) {
         jogador.ganharMana(energiaExtra);
