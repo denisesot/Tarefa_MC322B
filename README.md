@@ -4,6 +4,8 @@
 
 
 # Echoes of the Abyss
+![Build](https://img.shields.io/badge/build-gradle-green)
+![Docs](https://img.shields.io/badge/docs-Javadoc-blue)
 ![Java](https://img.shields.io/badge/Java-25-red)
 ![Status](https://img.shields.io/badge/status-in%20development-yellow)
 ![License](https://img.shields.io/badge/license-academic-blue)
@@ -14,7 +16,7 @@ Projeto desenvolvido para a disciplina MC322 - Programação Orientada a Objetos
 
 Inspirado no gênero roguelike deckbuilder e tomando como referência o jogo *Slay the Spire*, **Echoes of the Abyss** transporta o jogador para um cenário de horror cósmico inspirado nas obras de H. P. Lovecraft.
 
-Durante as tarefas da disciplina, o sistema será desenvolvido de forma incremental, adicionando novas mecânicas, cartas e melhorias de arquitetura.
+O sistema foi desenvolvido de forma incremental ao longo das tarefas da disciplina, adicionando novas mecânicas, cartas e melhorias de arquitetura.
 
 ## 📖 Descrição do Projeto
 
@@ -22,7 +24,28 @@ Em Echoes of the Abyss, o jogador assume o papel de um investigador que se avent
 
 Durante sua jornada, ele enfrenta criaturas e entidades que desafiam a compreensão humana. Para sobreviver, o jogador utiliza um baralho de cartas místicas, cada uma representando uma ação, habilidade ou manifestação de conhecimento oculto.
 
-Agora o sistema conta também com cartas de efeito, tornando o combate mais dinâmico e estratégico.
+## Funcionalidades Atuais
+- Sistema de combate por turnos
+- Baralho com compra, descarte e embaralhamento
+- Sistema de energia (mana)
+- Inimigos com intenções visíveis
+- Sistema de efeitos contínuos (status)
+- Aplicação de múltiplos efeitos simultâneos
+- Documentação completa com **Javadoc**
+- Build automatizado com **Gradle**
+
+## 🧩 Arquitetura do Sistema
+
+O projeto é dividido em componentes principais:
+
+- **Entidades**: representam personagens do jogo (Herói e Inimigo)
+- **Cartas**: encapsulam ações jogáveis com custo e efeito
+- **Efeitos**: sistema modular baseado em interface
+- **Gerenciador de Cartas**: controla fluxo de compra, descarte e uso
+
+O sistema de efeitos segue um modelo semelhante ao padrão Observer,
+onde as entidades mantêm uma coleção de efeitos ativos que são aplicados
+automaticamente a cada turno.
 
 ## Tipos de Cartas
 O jogo atualmente possui:
@@ -30,16 +53,37 @@ O jogo atualmente possui:
 ### Cartas Básicas
 - **Carta de Dano** - causa dano direto ao inimigo
 - **Carta de Escudo** - concede proteção ao jogador
+- **Cura** – recupera vida
+- **Energia** – recupera mana
+
+### Cartas Especiais
 - **Corneta de Guerra** - aplica vulnerabilidade ao inimigo (recebe mais dano)
+- **Sacrifício** – causa alto dano com custo de vida
+- **Magia (Chaos)** – aplica aleatoriamente efeitos como veneno, atordoamento ou queimadura. 
 
 ### Cartas de Efeito 
 
-- **Veneno** - causa dano ao final do turno em seguida descardada
+- **Veneno** - causa dano ao longo do turno e depois é removido
 - **Atordoar** - faz o alvo perder o próximo turno
- 
-Na primeira etapa do projeto, o sistema de combate será baseado em decisões estratégicas sobre quais cartas utilizar.
+- **Queimadura** – dano contínuo por turnos
 
-Em seguida, a criação de efeitos que funcionam tanto para o herói quanto para o inimigo utilizando um sistema genérico baseado em entidades.
+## Sistema de Efeitos
+O jogo utiliza um sistema baseado em interface:
+
+```java
+public interface Efeito {
+    void aplicar();
+    void reduzirDuracao();
+    boolean expirou();
+}
+```
+Isso permite:
+- Reutilização da lógica
+- Extensão fácil para novos efeitos
+- Aplicação dinâmica em qualquer entidade
+
+
+Na primeira etapa do projeto, o sistema de combate será baseado em decisões estratégicas sobre quais cartas utilizar.
 
 O objetivo do jogador é derrotar o inimigo antes que sua vitalidade ou sanidade se esgote, utilizando estratégia e gerenciamento de recursos.
 
@@ -47,10 +91,10 @@ O objetivo do jogador é derrotar o inimigo antes que sua vitalidade ou sanidade
 
 Durante o combate:
 
-- O jogador possui um baralho com 30 cartas com diferentes habilidades.
+- O jogador possui um baralho com 30 cartas.
 - No início de cada turno, o jogador compra 6 cartas do baralho.
 - Cada carta possui um custo de energia para ser utilizada.
-- O jogador pode usar quantas cartas quiser, desde que tenha energia suficiente.
+- O jogador pode usar cartas enquanto tiver mana suficiente.
 - As cartas permitem causar dano, ganhar escudo ou utilizar habilidades especiais, como a Corneta de Guerra.
 - Ao final do turno do jogador, sua mão é descartada.
 - Em seguida, os inimigos realizam suas ações, atacando ou aplicando efeitos.
@@ -67,66 +111,99 @@ O combate termina quando:
 - "99" -> encerra o turno.
 - "0" -> desistir da batalha.
 
+## 🏗 Estrutura do Projeto
+
+```
+Tarefa_MC322B/
+├── build.gradle
+├── settings.gradle
+├── gradlew
+├── gradlew.bat
+├── App
+│   ├── build/
+│   │   └── docs/
+│   │       └── javadoc/
+│   └── src/
+│       ├── main/
+│       │   └── java/
+│       │       └── game/
+│       │           └── echoes/
+│       │               ├── App.java
+│       │               ├── Carta.java
+│       │               │    ├── CartaAtordoar.java
+│       │               │    ├── CartaChama.java
+│       │               │    ├── CartaCorneta.java
+│       │               │    ├── CartaCura.java
+│       │               │    ├── CartaDano.java
+│       │               │    ├── CartaEnergetica.java
+│       │               │    ├── CartaEscudo.java
+│       │               │    ├── CartaMagica.java
+│       │               │    └── CartaVeneno.java
+│       │               ├── Efeito.java
+│       │               │    ├── EfeitoAtordoar.java
+│       │               │    ├── EfeitoQueimadura.java
+│       │               │    └── EfeitoVeneno.java
+│       │               ├── Entidade.java
+│       │               │  ├── Heroi.java
+│       │               │  └── Inimigo.java
+│       │               └── GerenciamentoDeCartas.java
+│       └── test/                
+├── .gitignore
+└── README.md
+```
+## ▶️ Como Executar
+
+### Usando Gradle
+
+```bash 
+./gradlew run
+```
+
+## 📄 Documentação
+
+A documentação completa do projeto foi gerada utilizando Javadoc.
+
+Para acessá-la:
+
+```bash
+./gradlew javadoc
+```
+
+Em seguida abra no terminal: 
+
+```bash
+open build/docs/javadoc/index.html   # Mac
+xdg-open build/docs/javadoc/index.html   # Linux
+```
+## 📝 Testes Unitários
+
+O projeto utiliza testes unitários para validação das entidades e regras de jogo.
+
+Para executar:
+
+```bash
+./gradlew test
+```
+
+## 🛠 Tecnologias Utilizadas
+
+- Gradle
+- Java 25
+- Visual Studio Code
+- Git
+- GitHub
+
 ## 🧠 Conceitos Trabalhados
 
 - Programação Orientada a Objetos (POO)
 - Encapsulamento (cartas, jogador, inimigo)
 - Herança
 - Polimorfismo
+- Padrão de projeto (Observer-like para efeitos)
 - Modularização de código
-- Estruturação de projetos Java
-- Modelagem de entidades de jogo
-
-## 🏗 Estrutura do Projeto
-
-```
-Tarefa_MC322B/
-├── src/
-│   ├── App.java
-│   └── Entidade.java
-│      ├── Herói.java
-│      └── Inimigo.java
-│   └── Carta.java
-│        ├── CartaCorneta.java
-│        ├── CartaDano.java
-│        └── CartaEscudo.java
-│   ├── GerenciamentoDeCartas
-│   └── Efeito.java
-│        ├── EfeitoAtordoar.java
-│        └── EfeitoVeneno.java
-├── bin/
-├── lib/
-├── .gitignore
-└── README.md
-```
-## ▶️ Como Executar
-
-1. Clonar o repositório
-``` </> Bash
-git clone https://github.com/denisesot/Tarefa_MC322B.git
-```
-
-2. Entrar na pasta do projeto
-``` </> Bash
-cd Tarefa_MC322B
-```
-
-3. Compilar o código
-``` </> Bash
-javac src/App.java
-```
-4. Executar
-``` </> Bash
-java src/App.java
-```
-
-## 🛠 Tecnologias Utilizadas
-
-- Java 25
-- Visual Studio Code
-- Git
-- GitHub
-
+- Estruturação de projetos com Gradle
+- Documentação com Javadoc
+- 
 ## 👨‍🏫 Disciplina
 
 MC322 - Programação Orientada a Objetos
