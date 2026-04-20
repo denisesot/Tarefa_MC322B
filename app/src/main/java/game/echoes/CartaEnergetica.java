@@ -26,3 +26,5 @@ public class CartaEnergetica extends Carta {
         System.out.println("Recuperou +" + energiaExtra + " de Mana! (Mana atual: " + jogador.getMana() + ")");
     }
 }
+
+

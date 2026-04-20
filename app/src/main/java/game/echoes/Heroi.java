@@ -46,3 +46,4 @@ public class Heroi extends Entidade {
         return manaMax;
     }
 }
+

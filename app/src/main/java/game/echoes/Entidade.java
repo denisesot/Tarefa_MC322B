@@ -134,3 +134,5 @@ public abstract class Entidade {
         return escudo;
     }
 }   
+
+

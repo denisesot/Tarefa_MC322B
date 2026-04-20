@@ -39,3 +39,5 @@ public class EfeitoVeneno implements Efeito {
         return duracao <= 0;
     }
 }
+
+

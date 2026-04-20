@@ -38,3 +38,5 @@ public abstract class Carta {
      */
     public abstract void usar(Heroi jogador, Inimigo alvo);
 }
+
+

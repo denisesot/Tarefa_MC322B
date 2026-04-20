@@ -25,3 +25,4 @@ public class CartaCura extends Carta {
         System.out.println("Vida atual: " + jogador.getVida());
     }
 }
+

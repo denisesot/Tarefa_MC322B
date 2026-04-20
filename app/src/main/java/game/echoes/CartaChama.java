@@ -27,3 +27,4 @@ public class CartaChama extends Carta {
         System.out.println("Queimadura aplicada!");
     }
 }
+

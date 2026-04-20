@@ -26,3 +26,4 @@ public class CartaAtordoar extends Carta {
         System.out.println("Inimigo atordoado!");
     }
 }
+
