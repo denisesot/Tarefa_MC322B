@@ -2,7 +2,6 @@
 
 *.class
 
-
 # Ignore Gradle project-specific cache directory
 .gradle
 
@@ -11,3 +10,12 @@ build
 
 # Ignore Kotlin plugin data
 .kotlin
+
+# OS generated files
+.DS_Store
+**/.DS_Store
+
+# IDEs
+.idea/
+.vscode/
+*.iml
