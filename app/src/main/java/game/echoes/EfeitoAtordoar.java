@@ -40,3 +40,4 @@ public class EfeitoAtordoar implements Efeito {
         return duracao <= 0;
     }
 }
+

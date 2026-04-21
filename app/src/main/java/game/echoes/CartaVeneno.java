@@ -29,3 +29,4 @@ public class CartaVeneno extends Carta {
         System.out.println("Veneno aplicado!");
     }
 }
+

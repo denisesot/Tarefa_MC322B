@@ -19,3 +19,6 @@ public interface Efeito {
      */
     boolean expirou();   
 } 
+
+
+

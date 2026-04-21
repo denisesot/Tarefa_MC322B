@@ -23,6 +23,7 @@ public class CartaEscudo extends Carta {
     public void usar(Heroi jogador, Inimigo alvo) {
         jogador.ganharEscudo(defesa);
         System.out.println(jogador.getNome() + " usou " + getNome() + " e aumentou seu escudo em " + defesa);
-        System.out.println("Escudo total de " + jogador.getNome() + ": " + (jogador.getEscudo() + defesa));
+        System.out.println("Escudo total de " + jogador.getNome() + ": " + jogador.getEscudo());
     }
 }
+

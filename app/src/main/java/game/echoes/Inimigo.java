@@ -20,14 +20,16 @@ public class Inimigo extends Entidade {
      * @param heroi O herói alvo do ataque
      */
     public void atacar(Heroi heroi) {
-        
-        if (this.estaAtordoado()) {
-        System.out.println("💫 " + this.getNome() + " está atordoado!");
+    if (this.estaAtordoado()) {
+        System.out.println(this.getNome() + " está atordoado!");
         return;
     }
-        int dano = 5; 
-        System.out.println(nome + " atacou causando " + dano + " de dano!");
-        heroi.receberDano(dano);
+
+    int danoBase = 5;
+    int danoFinal = danoBase + vulneravel;
+
+    System.out.println(this.getNome() + " atacou causando " + danoFinal + " de dano!");
+    heroi.receberDano(danoFinal);
     }
     public void anunciarIntencao() {
         System.out.println(">>> INTENÇÃO: " + this.getNome() + " planeja atacar causando 5 de dano neste turno!");

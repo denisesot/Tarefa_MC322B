@@ -29,3 +29,5 @@ public class CartaSacrificio extends Carta {
         System.out.println("O ataque brutal causou " + dano + " de dano em " + alvo.getNome() + "!");
     }
 }
+
+

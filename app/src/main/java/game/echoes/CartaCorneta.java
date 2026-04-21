@@ -30,3 +30,4 @@ public class CartaCorneta extends Carta {
         System.out.println("Ele receberá +2 de dano nos próximos ataques.");
     }
 }
+

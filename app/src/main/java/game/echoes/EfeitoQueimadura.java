@@ -35,3 +35,5 @@ public class EfeitoQueimadura implements Efeito {
         return duracao <= 0;
     }
 }
+
+

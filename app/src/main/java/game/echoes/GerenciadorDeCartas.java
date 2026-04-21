@@ -16,7 +16,7 @@ public class GerenciadorDeCartas {
 
     public GerenciadorDeCartas() {
         
-        for(int i=0; i < 10; i++){
+        for(int i=0; i < 2; i++){
             baralho.add(new CartaChama("Hell's Breath", "Causa 3 de dano e aplica queimadura.", 1, 3));
             baralho.add(new CartaCura("Divine Bless", "Cura 10 de vida.", 1, 10));
             baralho.add(new CartaEnergetica("Energy Potion", "Recupera 2 de mana.", 0, 2));
@@ -88,3 +88,4 @@ public class GerenciadorDeCartas {
         }
     }
 }
+
