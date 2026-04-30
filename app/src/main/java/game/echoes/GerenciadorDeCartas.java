@@ -14,20 +14,8 @@ public class GerenciadorDeCartas {
     private List<Carta> mao = new ArrayList<>();
     private List<Carta> descarte = new ArrayList<>();
 
-    public GerenciadorDeCartas() {
-        
-        for(int i=0; i < 2; i++){
-            baralho.add(new CartaChama("Hell's Breath", "Causa 3 de dano e aplica queimadura.", 1, 3));
-            baralho.add(new CartaCura("Divine Bless", "Cura 10 de vida.", 1, 10));
-            baralho.add(new CartaEnergetica("Energy Potion", "Recupera 2 de mana.", 0, 2));
-            baralho.add(new CartaMagica("Chaos", "Aplica um efeito aleatório no alvo.", 2));
-            baralho.add(new CartaSacrificio("Blood Pact", "Perde 6 de vida, causa 12 de dano.", 1, 12, 6));
-            baralho.add(new CartaDano("Forbidden Blade", "Causa 6 de dano.", 1, 6));
-            baralho.add(new CartaEscudo("Ward of Protection", "Ganha 5 de escudo.", 1, 5));
-            baralho.add(new CartaCorneta("Corneta de Guerra", "Deixa o inimigo vulnerável.", 1, 2));
-            baralho.add(new CartaVeneno("Veneno Ancestral", "Dano por turno", 1, 3, 2));
-            baralho.add(new CartaAtordoar("Ritual Sombrio", "Impede ação", 2, 1));
-        }
+    public GerenciadorDeCartas(List<Carta> baralhoDoHeroi) { // copia as cartas do baralho do heroi para a batalha
+        this.baralho.addAll(baralhoDoHeroi);
         Collections.shuffle(baralho);
     }
     

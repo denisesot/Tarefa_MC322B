@@ -1,17 +1,18 @@
 package game.echoes;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NoMapa {
 
-    private Inimigo inimigo;
+    private Evento evento;
     private List<NoMapa> proximos = new ArrayList<>();
 
-    public NoMapa(Inimigo inimigo) {
-        this.inimigo = inimigo;
+    public NoMapa(Evento evento) {
+        this.evento = evento;
     }
 
-    public Inimigo getInimigo() {
-        return inimigo;
+    public Evento getEvento() {
+        return evento;
     }
 
     public List<NoMapa> getProximos() {

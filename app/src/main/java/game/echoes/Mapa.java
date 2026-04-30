@@ -1,35 +1,38 @@
 package game.echoes;
 
-public class Mapa {
+import main.java.game.echoes.Escolha;
 
+public class Mapa {
+    
     private NoMapa raiz;
 
     public Mapa() {
-        montarMapa();
+        gerarMapa();
     }
 
-    private void montarMapa() {
-
-        // Fase 1
-        NoMapa inicio = new NoMapa(new Cultista());
-
-        // Fase 2 (escolha)
-        NoMapa caminho1 = new NoMapa(new Aberracao());
-        NoMapa caminho2 = new NoMapa(new Cultista());
-
-        // Boss
-        NoMapa boss = new NoMapa(new CthulhuBoss());
-
-        // Ligações
-        inicio.adicionarCaminho(caminho1);
-        inicio.adicionarCaminho(caminho2);
-
-        caminho1.adicionarCaminho(boss);
-        caminho2.adicionarCaminho(boss);
-
-        this.raiz = inicio;
+    /**
+     * Monta a estrutura de "árvore" do mapa, criando os nós e ligando-os.
+     */
+    private void gerarMapa() {//  Criamos os Eventos 
+        Evento batalhaInicial = new Batalha(new Cultista());
+        Evento eventoAltar = new Escolha();
+        Evento batalhaAberracao = new Batalha(new Aberracao());
+        Evento batalhaBoss = new Batalha(new CthulhuBoss()); // Colocamos os eventos dentro dos Nos do Mapa
+        NoMapa noInicio = new NoMapa(batalhaInicial);
+        NoMapa noCaminhoEsquerdo = new NoMapa(eventoAltar);
+        NoMapa noCaminhoDireito = new NoMapa(batalhaAberracao);
+        NoMapa noBossFinal = new NoMapa(batalhaBoss);//  Conectamos os nós para criar a navegação (adicionarCaminho)
+        // A partir do início, abrimos dois caminhos para o jogador escolher:
+        noInicio.adicionarCaminho(noCaminhoEsquerdo); // Opção 1: Ir para o Altar
+        noInicio.adicionarCaminho(noCaminhoDireito);  // Opção 2: Lutar contra Aberração
+        noCaminhoEsquerdo.adicionarCaminho(noBossFinal);// Independentemente do caminho escolhido, ambos levam ao Boss Final:
+        noCaminhoDireito.adicionarCaminho(noBossFinal);
+        this.raiz = noInicio; // 4. Definimos onde o mapa começa
     }
 
+    /**
+     * Retorna o primeiro nó do mapa para o Jogo começar a navegar.
+     */
     public NoMapa getRaiz() {
         return raiz;
     }
