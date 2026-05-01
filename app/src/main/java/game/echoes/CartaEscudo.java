@@ -21,8 +21,14 @@ public class CartaEscudo extends Carta {
      */
     @Override
     public void usar(Heroi jogador, Inimigo alvo) {
-        jogador.ganharEscudo(defesa);
-        System.out.println(jogador.getNome() + " usou " + getNome() + " e aumentou seu escudo em " + defesa);
+        int escudoAplicado = defesa;
+        String bono = "";
+        if (isMelhorada()) {
+            escudoAplicado = defesa + (defesa / 2);
+            bono = " [+50% aprimorada!]";
+        }
+        jogador.ganharEscudo(escudoAplicado);
+        System.out.println(jogador.getNome() + " usou " + getNome() + " e aumentou seu escudo em " + escudoAplicado + bono);
         System.out.println("Escudo total de " + jogador.getNome() + ": " + jogador.getEscudo());
     }
 }

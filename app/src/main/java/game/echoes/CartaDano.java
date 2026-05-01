@@ -20,8 +20,14 @@ public class CartaDano extends Carta {
      */
     @Override
     public void usar(Heroi jogador, Inimigo alvo) {
-        alvo.receberDano(dano);
-        System.out.println(jogador.getNome() + " usou " + getNome() + " e causou " + dano + " de dano em " + alvo.getNome());
+        int danoCausado = dano;
+        String bono = "";
+        if (isMelhorada()) {
+            danoCausado = dano + (dano / 2);
+            bono = " [+50% aprimorada!]";
+        }
+        alvo.receberDano(danoCausado);
+        System.out.println(jogador.getNome() + " usou " + getNome() + " e causou " + danoCausado + " de dano em " + alvo.getNome() + bono);
     }
 }
 

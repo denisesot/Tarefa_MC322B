@@ -21,9 +21,15 @@ public class CartaEnergetica extends Carta {
     */
     @Override
     public void usar(Heroi jogador, Inimigo alvo) {
-        jogador.ganharMana(energiaExtra);
-        System.out.println("⚡ " + jogador.getNome() + " sentiu um surto de adrenalina!");
-        System.out.println("Recuperou +" + energiaExtra + " de Mana! (Mana atual: " + jogador.getMana() + ")");
+        int manaRecuperada = energiaExtra;
+        String bono = "";
+        if (isMelhorada()) {
+            manaRecuperada = energiaExtra + (energiaExtra / 2);
+            bono = " [+50% aprimorada!]";
+        }
+        jogador.ganharMana(manaRecuperada);
+        System.out.println("⚡ " + jogador.getNome() + " sentiu um surto de adrenalina!" + bono);
+        System.out.println("Recuperou +" + manaRecuperada + " de Mana! (Mana atual: " + jogador.getMana() + ")");
     }
 }
 

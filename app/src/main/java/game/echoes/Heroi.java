@@ -1,19 +1,21 @@
 package game.echoes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Classe que representa o herói controlado pelo jogador.
  * 
- * O herói possui pontos de vida, mana e um nome, além de métodos para gerenciar a mana.
- * Ele pode usar cartas que consomem mana para realizar ações durante o jogo.
- * /modificacoes q fiz:coloquei o baralho aqui para guardar as cartas previas do jogo,  já q a cada luta o heroi recomeçava com o baralho padrão
+ * O herói possui pontos de vida, mana, ouro e dois baralhos (principal e reserva).
+ * Ele pode usar cartas que consomem mana para realizar ações durante o combate.
+ * Mantendo persistência entre batalhas, o herói acumula cartas e melhorias ao longo do jogo.
  */
 
 public class Heroi extends Entidade {
     private int mana;
     private int manaMax;
-    private List<Carta> baralhoPrincipal; //novo baralho permanente
+    private List<Carta> baralhoPrincipal;
+    private List<Carta> baralhoReserva;
     private int ouro = 50;
 
     /**
@@ -27,12 +29,15 @@ public class Heroi extends Entidade {
         super(nome, vida); 
         this.manaMax = 3; 
         this.mana = 3;
-    }
-
-    this.baralhoPrincipal = new ArrayList<>();
+        this.baralhoPrincipal = new ArrayList<>();
+        this.baralhoReserva = new ArrayList<>();
         inicializarBaralho(); 
     }
-    private void inicializarBaralho() { //inicializador do baralho movido pra cara
+
+    /**
+     * Inicializa o baralho principal do herói com as cartas base do jogo.
+     */
+    private void inicializarBaralho() {
         for(int i=0; i < 2; i++){
             baralhoPrincipal.add(new CartaChama("Hell's Breath", "Causa 3 de dano e aplica queimadura.", 1, 3));
             baralhoPrincipal.add(new CartaCura("Divine Bless", "Cura 10 de vida.", 1, 10));
@@ -46,17 +51,79 @@ public class Heroi extends Entidade {
             baralhoPrincipal.add(new CartaAtordoar("Ritual Sombrio", "Impede ação", 2, 1));
         }
     }
-    public List<Carta> getBaralhoPrincipal() { //metodos para adicionar e pegar cartas nas duas proximas funções
+
+    /**
+     * Retorna o baralho principal (em uso) do herói.
+     * 
+     * @return A lista de cartas do baralho principal
+     */
+    public List<Carta> getBaralhoPrincipal() {
         return baralhoPrincipal;
     }
 
+    /**
+     * Retorna o baralho reserva do herói.
+     * 
+     * @return A lista de cartas do baralho reserva
+     */
+    public List<Carta> getBaralhoReserva() {
+        return baralhoReserva;
+    }
+
+    /**
+     * Adiciona uma carta ao baralho principal do herói.
+     * 
+     * @param carta A carta a ser adicionada
+     */
     public void adicionarCarta(Carta carta) {
         baralhoPrincipal.add(carta);
     }
 
+    /**
+     * Adiciona uma carta ao baralho reserva do herói.
+     * 
+     * @param carta A carta a ser adicionada à reserva
+     */
+    public void adicionarCartaReserva(Carta carta) {
+        baralhoReserva.add(carta);
+    }
+
+    /**
+     * Remove uma carta do baralho principal pelo índice.
+     * 
+     * @param indice Índice da carta a ser removida
+     */
+    public void removerCarta(int indice) {
+        baralhoPrincipal.remove(indice);
+    }
+
+    /**
+     * Troca uma carta do baralho principal por uma do baralho reserva.
+     * 
+     * @param indiceAtual Índice da carta a sair do baralho principal
+     * @param indiceReserva Índice da carta a entrar do baralho reserva
+     */
+    public void trocarCartaComReserva(int indiceAtual, int indiceReserva) {
+        Carta cartaSaiu = baralhoPrincipal.remove(indiceAtual);
+        baralhoReserva.add(indiceReserva, cartaSaiu);
+        Carta cartaEntrou = baralhoReserva.remove(indiceReserva);
+        baralhoPrincipal.add(indiceAtual, cartaEntrou);
+    }
+
+    /**
+     * Retorna a mana atual do herói.
+     * 
+     * @return A quantidade de mana disponível
+     */
     public int getMana() {
         return mana;
     }
+
+    /**
+     * Gasta uma quantidade de mana.
+     * 
+     * @param custo A quantidade de mana a gastar
+     */
     public void gastarMana(int custo) {
         mana -= custo;
         if (mana < 0) {
@@ -64,6 +131,11 @@ public class Heroi extends Entidade {
         }
     }
 
+    /**
+     * Recupera uma quantidade de mana, não ultrapassando o máximo.
+     * 
+     * @param ganho A quantidade de mana a recuperar
+     */
     public void ganharMana(int ganho) {
         this.mana += ganho;
         if (this.mana > this.manaMax) {
@@ -71,14 +143,30 @@ public class Heroi extends Entidade {
         }
     }
 
+    /**
+     * Retorna a quantidade de ouro do herói.
+     * 
+     * @return O ouro disponível
+     */
     public int getOuro() {
         return ouro;
     }
 
+    /**
+     * Adiciona ouro ao herói.
+     * 
+     * @param quantidade A quantidade de ouro a adicionar
+     */
     public void ganharOuro(int quantidade) {
         this.ouro += quantidade;
     }
 
+    /**
+     * Tenta gastar uma quantidade de ouro.
+     * 
+     * @param quantidade A quantidade de ouro a gastar
+     * @return true se havia ouro suficiente, false caso contrário
+     */
     public boolean gastarOuro(int quantidade) {
         if (this.ouro >= quantidade) {
             this.ouro -= quantidade;
@@ -87,12 +175,19 @@ public class Heroi extends Entidade {
         return false;
     }
 
+    /**
+     * Restaura a mana para o valor máximo.
+     */
     public void resetarMana() {
         mana = manaMax;
     }
 
+    /**
+     * Retorna a mana máxima do herói.
+     * 
+     * @return O valor máximo de mana
+     */
     public int getMaxMana() {
         return manaMax;
     }
 }
-

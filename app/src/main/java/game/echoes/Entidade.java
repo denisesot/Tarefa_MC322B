@@ -101,6 +101,14 @@ public abstract class Entidade {
     }
 
     /**
+     * Remove efeitos temporários entre eventos do mapa.
+     */
+    public void limparEfeitos() {
+        efeitos.clear();
+        atordoado = false;
+    }
+
+    /**
      * Verifica se a entidade está atordoada.
      * 
      * @return true se a entidade estiver atordoada
@@ -124,15 +132,59 @@ public abstract class Entidade {
     }
 
     // Getters
+    /**
+     * Retorna o nome da entidade.
+     * 
+     * @return O nome da entidade
+     */
     public String getNome() {
         return nome;
     }
+
+    /**
+     * Retorna a vida atual da entidade.
+     * 
+     * @return Os pontos de vida atuais
+     */
     public int getVida() {
         return vida;
     }
+
+    /**
+     * Retorna o escudo atual da entidade.
+     * 
+     * @return Os pontos de escudo atuais
+     */
     public int getEscudo() {
         return escudo;
     }
+
+    /**
+     * Retorna a vida máxima da entidade.
+     * 
+     * @return O valor máximo de vida
+     */
+    public int getVidaMax() {
+        return vidaMax;
+    }
+
+    public String getResumoEfeitos() {
+        List<String> nomes = new ArrayList<>();
+        for (Efeito efeito : efeitos) {
+            if (efeito instanceof EfeitoVeneno) {
+                nomes.add("Veneno");
+            } else if (efeito instanceof EfeitoQueimadura) {
+                nomes.add("Queimadura");
+            } else if (efeito instanceof EfeitoAtordoar) {
+                nomes.add("Atordoado");
+            }
+        }
+        if (atordoado && !nomes.contains("Atordoado")) {
+            nomes.add("Atordoado");
+        }
+        if (nomes.isEmpty()) {
+            return "Sem efeitos";
+        }
+        return String.join(", ", nomes);
+    }
 }   
-
-

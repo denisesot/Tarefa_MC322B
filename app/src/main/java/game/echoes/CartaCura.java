@@ -20,8 +20,14 @@ public class CartaCura extends Carta {
      */
     @Override
     public void usar(Heroi jogador, Inimigo alvo) {
-        jogador.curar(cura); 
-        System.out.println("💚 " + jogador.getNome() + " usou " + getNome() + " e recuperou " + cura + " de vida!");
+        int curaAplicada = cura;
+        String bono = "";
+        if (isMelhorada()) {
+            curaAplicada = cura + (cura / 2);
+            bono = " [+50% aprimorada!]";
+        }
+        jogador.curar(curaAplicada); 
+        System.out.println("💚 " + jogador.getNome() + " usou " + getNome() + " e recuperou " + curaAplicada + " de vida!" + bono);
         System.out.println("Vida atual: " + jogador.getVida());
     }
 }

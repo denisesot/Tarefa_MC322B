@@ -34,6 +34,11 @@ public class Inimigo extends Entidade {
     public void anunciarIntencao() {
         System.out.println(">>> INTENÇÃO: " + this.getNome() + " planeja atacar causando 5 de dano neste turno!");
     }
+    /**
+     * Aplica um aumento de vulnerabilidade ao inimigo.
+     * 
+     * @param valor A quantidade de dano adicional a ser aplicado nos próximos ataques
+     */
     public void aplicarVulneravel(int valor) {
         this.vulneravel += valor;
     }

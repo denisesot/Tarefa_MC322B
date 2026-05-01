@@ -22,11 +22,17 @@ public class CartaSacrificio extends Carta {
      */
     @Override
     public void usar(Heroi jogador, Inimigo alvo) {
+        int danoAplicado = dano;
+        String bono = "";
+        if (isMelhorada()) {
+            danoAplicado = dano + (dano / 2);
+            bono = " [+50% dano aprimorada!]";
+        }
         jogador.receberDano(perdeVida);
-        alvo.receberDano(dano);
+        alvo.receberDano(danoAplicado);
         
-        System.out.println("🩸 " + jogador.getNome() + " pagou com o próprio sangue (" + perdeVida + " de vida)!");
-        System.out.println("O ataque brutal causou " + dano + " de dano em " + alvo.getNome() + "!");
+        System.out.println("🫸 " + jogador.getNome() + " pagou com o próprio sangue (" + perdeVida + " de vida)!" + bono);
+        System.out.println("O ataque brutal causou " + danoAplicado + " de dano em " + alvo.getNome() + "!");
     }
 }
 

@@ -22,9 +22,15 @@ public class CartaChama extends Carta {
      */
     @Override
     public void usar(Heroi jogador, Inimigo alvo) {
-        alvo.receberDano(dano);
+        int danoCausado = dano;
+        String bono = "";
+        if (isMelhorada()) {
+            danoCausado = dano + (dano / 2);
+            bono = " [+50% aprimorada!]";
+        }
+        alvo.receberDano(danoCausado);
         alvo.adicionarEfeito(new EfeitoQueimadura(alvo));
-        System.out.println("Queimadura aplicada!");
+        System.out.println("Queimadura aplicada ao " + alvo.getNome() + " (" + danoCausado + " de dano)!" + bono);
     }
 }
 

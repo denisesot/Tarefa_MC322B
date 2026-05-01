@@ -21,13 +21,19 @@ public class CartaCorneta extends Carta {
      */
     @Override
     public void usar(Heroi heroi, Inimigo inimigo) {
-        System.out.println("\n📯 Silas Vane ergue a Corneta de Guerra...");
+        int vulnAplicada = vulneravel;
+        String bono = "";
+        if (isMelhorada()) {
+            vulnAplicada = vulneravel + (vulneravel / 2);
+            bono = " [+50% aprimorada!]";
+        }
+        System.out.println("\n📢 Silas Vane ergue a Corneta de Guerra...");
         System.out.println("Um som antigo ecoa pelos abismos do oceano.");
-        System.out.println("As páginas proibidas do tomo vibram com poder.");
+        System.out.println("As páginas proibidas do tomo vibram com poder." + bono);
         System.out.println("O som reverbera contra a mente de " + inimigo.getNome() + "!");
-        inimigo.aplicarVulneravel(vulneravel);
+        inimigo.aplicarVulneravel(vulnAplicada);
         System.out.println(inimigo.getNome() + " está vulnerável!");
-        System.out.println("Ele receberá +2 de dano nos próximos ataques.");
+        System.out.println("Ele receberá +" + vulnAplicada + " de dano nos próximos ataques.");
     }
 }
 

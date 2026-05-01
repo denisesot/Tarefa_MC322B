@@ -25,8 +25,16 @@ public class CartaVeneno extends Carta {
      */
     @Override
     public void usar(Heroi jogador, Inimigo alvo) {
-        alvo.adicionarEfeito(new EfeitoVeneno(alvo, dano, duracao));
-        System.out.println("Veneno aplicado!");
+        int danoAplicado = dano;
+        int duracaoAplicada = duracao;
+        String bono = "";
+        if (isMelhorada()) {
+            danoAplicado = dano + (dano / 2);
+            duracaoAplicada = duracao + 1;
+            bono = " [+50% dano, +1 turno aprimorada!]";
+        }
+        alvo.adicionarEfeito(new EfeitoVeneno(alvo, danoAplicado, duracaoAplicada));
+        System.out.println("🤬 Veneno aplicado ao " + alvo.getNome() + "!" + bono);
     }
 }
 

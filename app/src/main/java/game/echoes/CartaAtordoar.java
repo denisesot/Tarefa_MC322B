@@ -22,8 +22,14 @@ public class CartaAtordoar extends Carta {
         */
     @Override
     public void usar(Heroi jogador, Inimigo alvo) {
-        alvo.adicionarEfeito(new EfeitoAtordoar(alvo, duracao));
-        System.out.println("Inimigo atordoado!");
+        int duracaoAplicada = duracao;
+        String bono = "";
+        if (isMelhorada()) {
+            duracaoAplicada = duracao + 1;
+            bono = " [+1 turno aprimorada!]";
+        }
+        alvo.adicionarEfeito(new EfeitoAtordoar(alvo, duracaoAplicada));
+        System.out.println("💫 Inimigo atordoado!" + bono);
     }
 }
 

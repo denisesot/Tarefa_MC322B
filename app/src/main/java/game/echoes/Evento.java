@@ -8,6 +8,13 @@ import java.util.Scanner;
  */
 public abstract class Evento {
     /**
+     * Retorna o nome exibido para este evento no mapa.
+     *
+     * @return O nome do evento
+     */
+    public abstract String getNomeEvento();
+
+    /**
      * Executa a lógica principal do evento.
      * * @param heroi O herói que está participando do evento 
      * @param scanner O scanner para ler as entradas do jogador via terminal

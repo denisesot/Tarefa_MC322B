@@ -1,7 +1,31 @@
 package game.echoes;
 import java.util.Scanner;
 
+/**
+ * Evento que apresenta uma escolha de risco ao herói.
+ * 
+ * Neste evento, o jogador decide entre aceitar uma consequência negativa em
+ * troca de uma recompensa ou ignorar a tentação e seguir pelo mapa.
+ */
 public class Escolha extends Evento {
+
+    /**
+     * Retorna o nome exibido para este evento no mapa.
+     * 
+     * @return O nome do evento narrativo
+     */
+    @Override
+    public String getNomeEvento() {
+        return "Altar Profano";
+    }
+    
+    /**
+     * Inicia o evento de escolha.
+     * 
+     * @param heroi O herói que enfrenta a escolha
+     * @param scanner O scanner para ler a escolha do jogador
+     * @return true se o herói sobreviveu, false se morreu
+     */
     @Override
     public boolean iniciar(Heroi heroi, Scanner scanner) {
         System.out.println("\n=================================");

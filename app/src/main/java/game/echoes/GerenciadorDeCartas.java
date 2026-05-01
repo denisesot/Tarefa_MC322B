@@ -52,6 +52,10 @@ public class GerenciadorDeCartas {
         }
     }
 
+    public List<Carta> getMao() {
+        return Collections.unmodifiableList(mao);
+    }
+
     /**
      * Permite ao jogador jogar uma carta da mão, aplicando seu efeito e movendo-a para o descarte.
      * Verifica se o jogador tem energia suficiente antes de jogar a carta.
@@ -76,4 +80,3 @@ public class GerenciadorDeCartas {
         }
     }
 }
-
