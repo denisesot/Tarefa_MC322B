@@ -292,6 +292,7 @@ public class TerminalUI {
                     return acao;
                 }
 
+                dormir(90);
                 frame++;
             }
         } catch (IOException e) {
@@ -330,6 +331,8 @@ public class TerminalUI {
                     } else {
                         return opcao == -99 ? -1 : opcao;
                     }
+
+                    dormir(90);
                     frame++;
                 }
             }
@@ -359,7 +362,8 @@ public class TerminalUI {
                 } else if (acao != -1) {
                     return acao;
                 }
-
+                
+                dormir(90);
                 frame++;
             }
         } catch (IOException e) {
