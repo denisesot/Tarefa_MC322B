@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 
+
 /**
  * Centraliza a apresentação visual do jogo no terminal.
  */
@@ -105,17 +106,21 @@ public class TerminalUI {
     public static void aguardarTecla() {
         ModoTerminal modo = new ModoTerminal();
         modo.ativar();
+
         try {
-            if (modo.estaAtivo()) {
-                while (true) {
-                    if (modo.temEntrada()) {
-                        modo.lerTecla();
-                        return;
-                    }
-                    dormir(80);
-                }
-            } else {
+            if (!modo.estaAtivo()) {
                 lerTeclaComDrenagem();
+                return;
+            }
+
+            while (true) {
+                int tecla = modo.lerTecla();
+
+                if (tecla != -1) {
+                    return;
+                }
+
+                dormir(80);
             }
         } catch (IOException e) {
             return;
@@ -936,6 +941,11 @@ public class TerminalUI {
             }
         }
         buffer.append(MAGENTA).append(BOLD).append("+").append(repetir("-", 92)).append("+").append(RESET).append("\n");
+        buffer.append("\n");
+        buffer.append(CYAN);
+        buffer.append("Pressione qualquer tecla para continuar.");
+        buffer.append(RESET);
+        buffer.append("\n");
         return buffer.toString();
     }
 
