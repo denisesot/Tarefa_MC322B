@@ -105,9 +105,10 @@ public class Heroi extends Entidade {
      */
     public void trocarCartaComReserva(int indiceAtual, int indiceReserva) {
         Carta cartaSaiu = baralhoPrincipal.remove(indiceAtual);
-        baralhoReserva.add(indiceReserva, cartaSaiu);
         Carta cartaEntrou = baralhoReserva.remove(indiceReserva);
+
         baralhoPrincipal.add(indiceAtual, cartaEntrou);
+        baralhoReserva.add(indiceReserva, cartaSaiu);
     }
 
     /**

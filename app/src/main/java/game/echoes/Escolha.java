@@ -1,5 +1,6 @@
 package game.echoes;
 import java.util.Scanner;
+import java.util.List;
 
 /**
  * Evento que apresenta uma escolha de risco ao herói.
@@ -28,27 +29,36 @@ public class Escolha extends Evento {
      */
     @Override
     public boolean iniciar(Heroi heroi, Scanner scanner) {
-        System.out.println("\n=================================");
-        System.out.println("          ALTAR PROFANO          ");
-        System.out.println("=================================");
-        System.out.println("Você encontra um altar gotejando sangue escuro.");
-        System.out.println("O que você faz?");
-        System.out.println("1 - Beber o sangue (Perde 5 PV, mas ganha 30 de Ouro).");
-        System.out.println("2 - Ignorar e seguir em frente.");
-        System.out.print("Sua escolha: ");
+        TerminalUI.alerta(
+            "Você encontra um altar gotejando sangue escuro.\n" +
+            "Uma força antiga parece chamar por você..."
+        );
 
-        int opcao = scanner.nextInt();
+        int opcao = TerminalUI.selecionarOpcao(
+            "Altar Profano",
+            java.util.List.of(
+                "Beber o sangue — perde 5 PV, ganha 30 de Ouro",
+                "Ignorar e seguir em frente"
+            ),
+            "Use setas/Enter ou número para escolher."
+        );
 
-        if (opcao == 1) {
+        if (opcao == 0) {
             heroi.receberDano(5);
+
             if (heroi.estaVivo()) {
                 heroi.ganharOuro(30);
-                System.out.println("\nSua garganta queima, mas você encontra moedas no fundo do cálice!");
-                System.out.println("💰 Ouro atual: " + heroi.getOuro());
+                TerminalUI.sucesso(
+                    "Sua garganta queima, mas você encontra moedas no fundo do cálice!\n" +
+                    "Ouro atual: " + heroi.getOuro()
+                );
+            } else {
+                TerminalUI.alerta("O sangue profano consumiu sua última força...");
             }
         } else {
-            System.out.println("\nVocê ignora a tentação.");
+            TerminalUI.log("Você ignora a tentação e segue em frente.");
         }
-        return heroi.estaVivo(); 
+
+        return heroi.estaVivo();
     }
 }

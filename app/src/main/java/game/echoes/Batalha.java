@@ -148,22 +148,37 @@ public class Batalha extends Evento {
     }
 
     private void entregarRecompensas(Heroi heroi) {
-        System.out.println("\nVocê venceu a batalha!");
-
         Random rand = new Random();
+
         int ouroGanho = rand.nextInt(21) + 15;
         heroi.ganharOuro(ouroGanho);
-        System.out.println("Você saqueou " + ouroGanho + " de ouro! (Total: " + heroi.getOuro() + ")");
+
+        TerminalUI.sucesso(
+            "Você venceu a batalha!\n\n" +
+            "Você saqueou " + ouroGanho + " de ouro!\n" +
+            "Ouro total: " + heroi.getOuro()
+        );
 
         List<Carta> opcoes = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             opcoes.add(CartaFactory.criarCartaAleatoria());
         }
 
-        for (Carta recompensa : opcoes) {
-            heroi.adicionarCarta(recompensa);
-            System.out.println("RECOMPENSA: Você adicionou a carta ["
-                    + recompensa.getNome() + "] ao seu baralho!");
+        int escolha = TerminalUI.selecionarCarta(
+            "Escolha uma carta como recompensa",
+            opcoes,
+            "Use setas/Enter ou número para escolher. Q ou 0 pula a recompensa."
+        );
+
+        if (escolha >= 0 && escolha < opcoes.size()) {
+            Carta recompensa = opcoes.get(escolha);
+            heroi.adicionarCartaReserva(recompensa);
+
+            TerminalUI.sucesso(
+                "Você adicionou [" + recompensa.getNome() + "] ao seu baralho!"
+            );
+        } else {
+            TerminalUI.log("Você ignorou a recompensa de carta.");
         }
     }
 }
